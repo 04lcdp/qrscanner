@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 2em;
+}
+
+video {
+  width: 100%;
+  max-width: 600px;
+  border: 2px solid #333;
+  border-radius: 10px;
+}
+
+#resultado {
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+}
+
+#reset-btn {
+  margin-top: 1em;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#reset-btn:hover {
+  background-color: #0056b3;
+}
