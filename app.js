@@ -3,25 +3,33 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const resultado = document.getElementById("resultado");
 const resetBtn = document.getElementById("reset-btn");
+const scanBtn = document.getElementById("scan-btn");
 
 let codigosValidos = [];
+let escaneando = false;
 
 fetch('codigos_validos.json')
   .then(res => res.json())
   .then(data => {
     codigosValidos = data.codigos;
-    iniciarCamara();
   })
   .catch(err => {
     resultado.textContent = "Error cargando los códigos válidos.";
     console.error(err);
   });
 
+scanBtn.addEventListener("click", () => {
+  iniciarCamara();
+  scanBtn.hidden = true;
+  video.hidden = false;
+});
+
 function iniciarCamara() {
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     .then(stream => {
       video.srcObject = stream;
       video.setAttribute("playsinline", true);
+      escaneando = true;
       requestAnimationFrame(tick);
     })
     .catch(err => {
@@ -31,6 +39,8 @@ function iniciarCamara() {
 }
 
 function tick() {
+  if (!escaneando) return;
+
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     canvas.height = video.videoHeight;
     canvas.width = video.videoWidth;
@@ -75,6 +85,8 @@ function validarCodigo(texto) {
     resultado.textContent = "❌ Código NO válido: " + texto;
     resultado.style.color = "red";
   }
+
+  escaneando = false;
 }
 
 resetBtn.addEventListener("click", () => {
@@ -83,4 +95,6 @@ resetBtn.addEventListener("click", () => {
   ultimoCodigo = "";
   ultimoTiempo = 0;
   resetBtn.hidden = true;
+  scanBtn.hidden = false;
+  video.hidden = true;
 });
