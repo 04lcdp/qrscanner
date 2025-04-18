@@ -10,9 +10,12 @@
   <h1>Validador de QR</h1>
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" hidden></canvas>
-  <div id="resultado">Esperando código QR...</div>
 
-  <script src="jsqr.min.js"></script>
+  <div id="resultado">Esperando código QR...</div>
+  <button id="reset-btn" hidden>🔄 Borrar / Escanear otro</button>
+
+  <!-- CDN de jsQR -->
+  <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
